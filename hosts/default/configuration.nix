@@ -2,28 +2,28 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ pkgs, lib, config, ... }:
 
 {
 
    # Bootloader.
-   #boot.loader.systemd-boot.enable = true;
-   #boot.loader.efi.canTouchEfiVariables = true;
-   boot = {
-      loader = {
-         efi = {
-            canTouchEfiVariables = true;
-            efiSysMountPoint = "/boot/efi";
-         };
-         grub = {
-            enable = true;
-            efiSupport = true;
-            devices = [ "nodev" ];
-            useOSProber = true;
-         };
-         timeout = 5;
-      };
-   };
+   boot.loader.systemd-boot.enable = true;
+   boot.loader.efi.canTouchEfiVariables = true;
+#   boot = {
+#      loader = {
+ #        efi = {
+#            canTouchEfiVariables = true;
+#            efiSysMountPoint = "/boot/efi";
+ #        };
+  #       grub = {
+   #         enable = true;
+    #        efiSupport = true;
+     #       devices = [ "nodev" ];
+      #      useOSProber = true;
+        # };
+         #timeout = 5;
+      #};
+   #};
 
   # networking.hostName = ""; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -45,7 +45,7 @@
    i18n = {
       defaultLocale = "en_GB.UTF-8";
       inputMethod = {
-         enabled = true;
+         enabled = "ibus";
          ibus = {
             engines = with pkgs.ibus-engines; [ anthy ];
          };
@@ -54,7 +54,7 @@
 
   # Configure console keymap
    console = {
-      keyMap = "no";
+      keyMap = lib.mkDefault "no";
       font = "Lat2-Terminus16";
       useXkbConfig = true;
    };
@@ -68,17 +68,17 @@
    services = {
       blueman.enable = true;
       dbus.packages = [ pkgs.gcr ];
-      flatpack.enable = true;
+#      flatpack.enable = true;
       geoclue2.enable = true;
       gnome.gnome-keyring.enable = true;
-      keyd = {
-         enable = true;
-         settings = {
-            main = {
-               capslock = "overload(control, esc)";
-            };
-         };
-      };
+      #keyd = {
+      #   enable = true;
+      #   settings = {
+      #      main = {
+      #         capslock = "overload(control, esc)";
+      #      };
+      #   };
+      #};
       openssh.enable = true;
       pipewire = {
           enable = true;
@@ -95,11 +95,11 @@
       printing.enable = true;
       tumbler.enable = true;
       udev.packages = with pkgs; [
-         gnome.gnome-settings.daemon;
+         gnome.gnome-settings-daemon
          openocd
          platformio
       ];
-      upower.enable = true;
+      # upower.enable = true;
       xserver = {
          enable = true;
          
@@ -115,9 +115,11 @@
             };
             lightdm.enable = false;
          };
-         layout = "no";
          libinput.enable = true;
-         xkbVariant = "";
+         xkb = {
+            layout = "no";
+            variant = "";
+         };
       };
    };
 

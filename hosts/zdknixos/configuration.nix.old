@@ -1,0 +1,79 @@
+{ config, pkgs, lib, inputs, ... }:
+
+{
+   imports = [
+      ../default/configuration.nix
+      ./hardware-configuration.nix # Include the results of the hardware scan.
+   ];
+   # boot.initrd.kernelModules = [ "amdgpu" ];
+
+   networking.hostName = "zdknixos"; # Define your hostname.
+   
+   environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  
+   environment.systemPackages = with pkgs; [
+      alsa-utils
+      curl
+      direnv
+      dunst
+      hyprpicker
+      jq
+      libnotify
+      ncmpcpp
+      neofetch
+      networkmanagerapplet
+      python3
+      rofi-wayland
+      socat
+      swaybg
+      swayidle
+      wlogout
+      wl-clipboard
+      xfce.thunar
+      yad
+   ];
+
+   programs = {
+      dconf.enable = true;
+   
+      gnupg.agent = {
+         enable = true;
+         enableSSHSupport = true;
+      };
+   
+      hyprland = {
+         enable = true;
+         package = inputs.hyprland.packages."${pkgs.system}".hyprland;
+         
+         xwayland = {
+            enable = true;
+         };
+      };
+      
+      light.enable = true;
+      
+      mtr.enable = true;
+      
+      thunar = {
+         plugins = with pkgs.xfce; [
+            thunar-archive-plugin
+            thunar-volman
+         ];
+      };
+      
+      zsh.enable = true;
+   };
+
+   security.pam.services.swaylock = {};
+   
+   services = {
+   };
+   
+   xdg.portal = {
+      enable = true;
+      wlr.enable = true;
+      extraPortals = with pkgs; [
+         xdg-desktop-portal-wlr
+      ];
+   };
+}

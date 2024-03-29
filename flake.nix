@@ -23,14 +23,18 @@
 	outputs = { ... } @ inputs: 
 	let
 		# lib = nixpkgs.lib;
-		myLib = import ./lib/default.nix {inherit inputs};
-	in {
+		myLib = import ./lib/default.nix {inherit inputs;};
+	in 
+	   with myLib; {
 		nixosConfigurations = {
 			zdknixos = mkSystem ./hosts/zdknixos/configuration.nix;
 		};
 
-		homeConfiguration = {
-			"zdk@zdknixos" = mkHome "x86_64-linux" ./hosts/zdknixos/home.nix;
-		};
+		#homeConfiguration = {
+		#	"zdk@zdknixos" = mkHome "x86_64-linux" ./hosts/zdknixos/home.nix;
+		#};
+
+      homeManagerModules.default = ./modules/home-manager;
+      nixosModules.default = ./modules/nixos;
 	};
 }
