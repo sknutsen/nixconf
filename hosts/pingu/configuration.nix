@@ -119,6 +119,7 @@
     kitty
     networkmanagerapplet
     nvtopPackages.full
+    nwg-look
     pamixer
     pavucontrol
     playerctl
