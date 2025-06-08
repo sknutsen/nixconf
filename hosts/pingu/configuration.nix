@@ -220,6 +220,11 @@
       enable = true;
     };
 
+    nh = {
+      enable = true;
+      flake = "~/.nixconf";
+    };
+
     waybar.enable = true;
     hyprlock.enable = true;
 
