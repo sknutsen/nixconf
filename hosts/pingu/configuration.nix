@@ -216,13 +216,8 @@
       xwayland.enable = true; # Xwayland can be disabled.
     };
 
-    neovim = {
-      enable = true;
-    };
-
     nh = {
       enable = true;
-      flake = "~/.nixconf";
     };
 
     waybar.enable = true;
