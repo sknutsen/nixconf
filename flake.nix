@@ -55,6 +55,17 @@
         system = "x86_64-linux";
         user = "zdk";
       };
+
+      socrates = mkSystem "socrates" {
+        system = "x86_64-linux";
+        user = "zdk";
+      };
+
+      wsl = mkSystem "wsl" {
+        system = "x86_64-linux";
+        user = "zdk";
+        wsl = true;
+      };
     };
   };
 }
