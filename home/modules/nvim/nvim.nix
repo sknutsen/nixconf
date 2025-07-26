@@ -144,6 +144,12 @@
           transparent = false;
         };
 
+        ui = {
+          noice = {
+            enable = true;
+          };
+        };
+
         utility = {
           oil-nvim = {
             enable = true;
