@@ -6,35 +6,55 @@
       url = "github:NixOS/nixpkgs/nixos-unstable";
     };
 
+    # Build a custom WSL installer
+    nixos-wsl = {
+      url = "github:nix-community/NixOS-WSL";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    darwin = {
+      url = "github:nix-darwin/nix-darwin/nix-darwin-25.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     hyprland.url = "github:hyprwm/Hyprland";
 
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      # If using a stable channel you can use `url = "github:nix-community/nixvim/nixos-<version>"`
+    nvf = {
+      url = "github:notashelf/nvf";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      # IMPORTANT: we're using "libgbm" and is only available in unstable so ensure
+      # to have it up-to-date or simply don't specify the nixpkgs input
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = {...} @ inputs: let
-    # lib = nixpkgs.lib;
-    myLib = import ./lib/default.nix {inherit inputs;};
-  in
-    with myLib; {
-      nixosConfigurations = {
-        pingu = mkSystem ./hosts/pingu/configuration.nix;
-        zdknixos = mkSystem ./hosts/zdknixos/configuration.nix;
-      };
+  outputs = {
+    self,
+    nixpkgs,
+    home-manager,
+    darwin,
+    ...
+  } @ inputs: let
+    overlays = [];
 
-      #homeConfiguration = {
-      #	"zdk@zdknixos" = mkHome "x86_64-linux" ./hosts/zdknixos/home.nix;
-      #};
-
-      # homeManagerModules.default = ./modules/home-manager;
-      nixosModules.default = ./modules/nixos;
+    mkSystem = import ./lib/mkSystem.nix {
+      inherit overlays nixpkgs inputs;
     };
+  in {
+    nixosConfigurations = {
+      pingu = mkSystem "pingu" {
+        system = "x86_64-linux";
+        user = "zdk";
+      };
+    };
+  };
 }
