@@ -69,7 +69,7 @@
     ];
   };
 
-  users.defaultUserShell = pkgs.zsh;
+  users.defaultUserShell = pkgs.fish;
 
   # Enable automatic login for the user.
   services.getty.autologinUser = "zdk";
@@ -250,6 +250,7 @@
       enableSSHSupport = true;
     };
 
+    fish.enable = true;
     zsh.enable = true;
   };
 

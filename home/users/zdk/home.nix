@@ -14,7 +14,9 @@
       inputs.zen-browser.homeModules.twilight
 
       ../../modules/nvim
+      ../../modules/shell
       ../../modules/utils
+      ../../modules/vcs
     ]
     ++ lib.optional (!isWSL) ./gui.nix;
 
@@ -60,6 +62,12 @@
       #   org.gradle.console=verbose
       #   org.gradle.daemon.idletimeout=3600000
       # '';
+      ".config/gtk-3.0".source = ../../dotiles/gtk/gtk-3.0;
+      ".config/gtk-4.0".source = ../../dotiles/gtk/gtk-4.0;
+      ".config/kglobalshortcutsrc".source = ../../dotiles/kglobalshortcutsrc;
+      ".config/kvantum".source = ../../dotiles/kvantum;
+      ".config/qt5ct".source = ../../dotiles/qt/qt5ct;
+      ".config/qt6ct".source = ../../dotiles/qt/qt6ct;
     };
 
     # Home Manager can also manage your environment variables through
@@ -73,7 +81,8 @@
     };
 
     shell = {
-      enableZshIntegration = true;
+      enableZshIntegration = false;
+      enableFishIntegration = true;
     };
 
     # This value determines the Home Manager release that your configuration is
@@ -91,8 +100,20 @@
       enable = true;
     };
 
+    lazydocker = {
+      enable = true;
+      settings = builtins.readFile ../../dotiles/lazygit/config.yml;
+    };
+
+    lazygit = {
+      enable = true;
+      settings = builtins.readFile ../../dotiles/lazygit/config.yml;
+    };
+
     starship = {
       enable = true;
+      enableZshIntegration = true;
+      settings = builtins.readFile ../../dotiles/starship/starship.toml;
     };
   };
 
@@ -105,7 +126,9 @@
 
   xdg = {
     enable = true;
-    configFile = {};
+    configFile = {
+      "rofi/config.rasi".text = builtins.readFile ../../dotfiles/rofi/config.rasi;
+    };
   };
 
   # Let Home Manager install and manage itself.
