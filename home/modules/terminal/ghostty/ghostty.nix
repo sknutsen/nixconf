@@ -3,9 +3,13 @@
   inputs,
   pkgs,
   ...
-}: {
+}:
+let
+  isDarwin = pkgs.stdenv.isDarwin;
+  isLinux = pkgs.stdenv.isLinux;
+in {
   programs.ghostty = {
-    enable = true;
+    enable = !isDarwin && isLinux;
     enableZshIntegration = true;
 
     settings = {

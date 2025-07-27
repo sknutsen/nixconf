@@ -18,7 +18,7 @@
     };
 
     darwin = {
-      url = "github:nix-darwin/nix-darwin/nix-darwin-25.05";
+      url = "github:nix-darwin/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -65,6 +65,14 @@
         system = "x86_64-linux";
         user = "zdk";
         wsl = true;
+      };
+    };
+
+    darwinConfigurations = {
+      remorse = mkSystem "remorse" {
+        system = "aarch64-darwin";
+        user = "zdk";
+        darwin = true;
       };
     };
   };
