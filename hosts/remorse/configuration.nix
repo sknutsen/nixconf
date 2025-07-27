@@ -11,6 +11,13 @@
       "ghostty"
     ];
   };
+
+  environment.shells = with pkgs; [
+    bashInteractive
+    fish
+    zsh
+  ];
+
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
@@ -42,8 +49,7 @@
       };
 
       # Add some common debugging tools we can see whats up.
-      environment.systemPackages = [
-        pkgs.htop
+      environment.systemPackages = with pkgs; [
       ];
     };
   };
@@ -71,8 +77,26 @@
   };
 
   programs = {
+    fish = {
+      enable = true;
+      shellInit = ''
+        # Nix
+        if test -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish'
+          source '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish'
+        end
+        # End Nix
+      '';
+    };
+
     zsh = {
       enable = true;
+      shellInit = ''
+        # Nix
+        if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+          . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+        fi
+        # End Nix
+      '';
     };
   };
 }

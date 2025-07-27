@@ -14,6 +14,7 @@
       inputs.zen-browser.homeModules.twilight
 
       ../../modules/nvim
+      ../../modules/utils
     ]
     ++ lib.optional (!isWSL) ./gui.nix;
 
@@ -37,7 +38,12 @@
       # (pkgs.writeShellScriptBin "my-hello" ''
       #   echo "Hello, ${config.home.username}!"
       # '')
+      bat
+      eza
+      htop
+      jq
       lazygit
+      ripgrep
       zsh
     ];
 
@@ -81,6 +87,10 @@
   };
 
   programs = {
+    direnv = {
+      enable = true;
+    };
+
     starship = {
       enable = true;
     };
@@ -91,6 +101,11 @@
       enable = true;
       guiAddress = "127.0.0.i:8384";
     };
+  };
+
+  xdg = {
+    enable = true;
+    configFile = {};
   };
 
   # Let Home Manager install and manage itself.
