@@ -21,7 +21,6 @@
     # Home Manager needs a bit of information about you and the paths it should
     # manage.
     username = "zdk";
-    homeDirectory = "/home/zdk";
 
     # The home.packages option allows you to install Nix packages into your
     # environment.
@@ -62,9 +61,13 @@
     # shell provided by Home Manager.
     sessionVariables = {
       EDITOR = "nvim";
-      NH_DARWIN_FLAKE = "";
+      NH_DARWIN_FLAKE = "/Users/zdk/.nixconf";
       NH_HOME_FLAKE = "/home/zdk/.config/home-manager";
       NH_OS_FLAKE = "/home/zdk/.nixconf";
+    };
+
+    shell = {
+      enableZshIntegration = true;
     };
 
     # This value determines the Home Manager release that your configuration is
@@ -80,6 +83,13 @@
   programs = {
     starship = {
       enable = true;
+    };
+  };
+
+  services = {
+    syncthing = {
+      enable = true;
+      guiAddress = "127.0.0.i:8384";
     };
   };
 
