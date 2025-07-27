@@ -44,6 +44,11 @@
     fish-fzf.flake = false;
     fish-foreign-env.url = "github:oh-my-fish/plugin-foreign-env/dddd9213272a0ab848d474d0cbde12ad034e65bc";
     fish-foreign-env.flake = false;
+
+    dotfiles = {
+      url = "github:sknutsen/dotfiles";
+      flake = false;
+    };
   };
 
   outputs = {
