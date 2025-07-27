@@ -73,7 +73,7 @@
 
   users.users.zdk = {
     home = "/Users/zdk";
-    shell = pkgs.zsh;
+    shell = pkgs.fish;
   };
 
   programs = {

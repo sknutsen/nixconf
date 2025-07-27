@@ -1,5 +1,6 @@
 {
   imports = [
+    ./librewolf
     ./zen-browser
   ];
 }
