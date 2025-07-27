@@ -220,7 +220,7 @@
       enable = true;
     };
 
-    waybar.enable = true;
+    waybar.enable = false;
     hyprlock.enable = true;
 
     thunar.enable = true;
