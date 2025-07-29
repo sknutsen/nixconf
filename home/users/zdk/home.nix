@@ -62,16 +62,13 @@
       #   org.gradle.console=verbose
       #   org.gradle.daemon.idletimeout=3600000
       # '';
-      ".config/gtk-3.0".source = ../../dotfiles/gtk/gtk-3.0;
-      ".config/gtk-4.0".source = ../../dotfiles/gtk/gtk-4.0;
-      ".config/kglobalshortcutsrc".source = ../../dotfiles/kde/kglobalshortcutsrc;
-      ".config/kvantum".source = ../../dotfiles/kvantum;
-      ".config/lazydocker".source = ../../dotfiles/lazydocker;
-      ".config/lazygit".source = ../../dotfiles/lazygit;
-      ".config/qt5ct".source = ../../dotfiles/qt/qt5ct;
-      ".config/qt6ct".source = ../../dotfiles/qt/qt6ct;
-      ".config/rofi".source = ../../dotfiles/rofi;
-      ".config/starship".source = ../../dotfiles/starship;
+      ".config/gtk-3.0".source = "${inputs.dotfiles}/gtk/gtk-3.0";
+      ".config/gtk-4.0".source = "${inputs.dotfiles}/gtk/gtk-4.0";
+      ".config/kglobalshortcutsrc".source = "${inputs.dotfiles}/kde/kglobalshortcutsrc";
+      ".config/kvantum".source = "${inputs.dotfiles}/kvantum";
+      ".config/qt5ct".source = "${inputs.dotfiles}/qt/qt5ct";
+      ".config/qt6ct".source = "${inputs.dotfiles}/qt/qt6ct";
+      ".config/rofi".source = "${inputs.dotfiles}/rofi";
     };
 
     # Home Manager can also manage your environment variables through
@@ -106,19 +103,19 @@
 
     lazydocker = {
       enable = true;
-      # settings = inputs.dotiles/lazydocker/config.yml;
+      settings = "${inputs.dotfiles}/lazydocker/config.yml";
     };
 
     lazygit = {
       enable = true;
-      # settings = inputs.dotiles/lazygit/config.yml;
+      settings = "${inputs.dotfiles}/lazygit/config.yml";
     };
 
     starship = {
       enable = true;
       enableZshIntegration = true;
       enableFishIntegration = true;
-      # settings = inputs.dotiles/starship/starship.toml;
+      settings = builtins.fromTOML (builtins.readFile "${inputs.dotfiles}/starship/starship.toml");
     };
   };
 

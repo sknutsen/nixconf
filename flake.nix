@@ -1,6 +1,5 @@
 {
   description = "nixos config";
-  inputs.self.submodules = true;
 
   inputs = {
     nixpkgs = {
