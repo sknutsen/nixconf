@@ -1,3 +1,0 @@
-[submodule "dotfiles"]
-	path = home/dotfiles
-	url = git@github.com:sknutsen/dotfiles.git
