@@ -70,6 +70,13 @@
       ".config/qt6ct".source = "${inputs.dotfiles}/qt/qt6ct";
       ".config/rofi".source = "${inputs.dotfiles}/rofi";
       ".config/sketchybar".source = "${inputs.dotfiles}/sketchybar";
+
+      # Zsh
+      ".config/zsh".source = "${inputs.dotfiles}/zsh/zsh";
+      ".config/.zprofile".source = "${inputs.dotfiles}/zsh/.zprofile";
+      ".config/.zshenv".source = "${inputs.dotfiles}/zsh/.zshenv";
+      ".config/.zshrc".source = "${inputs.dotfiles}/zsh/.zshrc";
+      ".config/.zshrc.zni".source = "${inputs.dotfiles}/zsh/.zshrc.zni";
     };
 
     # Home Manager can also manage your environment variables through
