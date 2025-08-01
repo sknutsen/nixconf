@@ -3,8 +3,7 @@
   pkgs,
   ...
 }: {
-  programs.zsh = {
+  services.sketchybar = {
     enable = true;
-    enableCompletion = true;
   };
 }
