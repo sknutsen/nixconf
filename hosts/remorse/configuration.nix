@@ -3,6 +3,10 @@
   pkgs,
   ...
 }: {
+  imports = [
+    ../../modules/darwin
+  ];
+
   homebrew = {
     # Install Homebrew under the default prefix
     enable = true;
