@@ -49,11 +49,6 @@
       zsh
     ];
 
-    activation.sketchybar =
-      if pkgs.stdenv.isDarwin
-      then (lib.hm.dag.entryAfter ["writeBoundary"] "${pkgs.sketchybar}/bin/sketchybar --reload")
-      else "";
-
     # Home Manager is pretty good at managing dotfiles. The primary way to manage
     # plain files is through 'home.file'.
     file = {
@@ -76,7 +71,17 @@
       ".config/qt5ct".source = "${inputs.dotfiles}/qt/qt5ct";
       ".config/qt6ct".source = "${inputs.dotfiles}/qt/qt6ct";
       ".config/rofi".source = "${inputs.dotfiles}/rofi";
-      ".config/sketchybar".source = "${inputs.dotfiles}/sketchybar";
+      ".config/sketchybar" = {
+        source = "${inputs.dotfiles}/sketchybar";
+        recursive = true;
+        onchange = "${pkgs.sketchybar}/bin/sketchybar --reload";
+      };
+
+      ".config/sketchybar/sketchybarrc" = {
+        source = "${inputs.dotfiles}/sketchybar/sketchybarrc";
+        executable = true;
+        onChange = "${pkgs.sketchybar}/bin/sketchybar --reload";
+      };
 
       # Zsh
       "zsh".source = "${inputs.dotfiles}/zsh/zsh";
