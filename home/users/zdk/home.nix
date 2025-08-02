@@ -49,7 +49,10 @@
       zsh
     ];
 
-    activation.sketchybar = lib.optional (pkgs.stdenv.isDarwin) (lib.hm.dag.entryAfter ["writeBoundary"] "${pkgs.sketchybar}/bin/sketchybar --reload");
+    activation.sketchybar =
+      if pkgs.stdenv.isDarwin
+      then (lib.hm.dag.entryAfter ["writeBoundary"] "${pkgs.sketchybar}/bin/sketchybar --reload")
+      else "";
 
     # Home Manager is pretty good at managing dotfiles. The primary way to manage
     # plain files is through 'home.file'.
