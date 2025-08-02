@@ -74,7 +74,7 @@
       ".config/sketchybar" = {
         source = "${inputs.dotfiles}/sketchybar";
         recursive = true;
-        onchange = "${pkgs.sketchybar}/bin/sketchybar --reload";
+        onChange = "${pkgs.sketchybar}/bin/sketchybar --reload";
       };
 
       ".config/sketchybar/sketchybarrc" = {
