@@ -14,6 +14,7 @@
     casks = [
       "font-hack-nerd-font"
       "ghostty"
+      "sketchybar"
     ];
   };
 
