@@ -66,6 +66,8 @@
       ".config/gtk-4.0".source = "${inputs.dotfiles}/gtk/gtk-4.0";
       ".config/kglobalshortcutsrc".source = "${inputs.dotfiles}/kde/kglobalshortcutsrc";
       ".config/kvantum".source = "${inputs.dotfiles}/kvantum";
+      ".config/lazydocker".source = "${inputs.dotfiles}/lazydocker";
+      ".config/lazygit".source = "${inputs.dotfiles}/lazygit";
       ".config/qt5ct".source = "${inputs.dotfiles}/qt/qt5ct";
       ".config/qt6ct".source = "${inputs.dotfiles}/qt/qt6ct";
       ".config/rofi".source = "${inputs.dotfiles}/rofi";
@@ -111,12 +113,10 @@
 
     lazydocker = {
       enable = true;
-      settings = "${inputs.dotfiles}/lazydocker/config.yml";
     };
 
     lazygit = {
       enable = true;
-      settings = "${inputs.dotfiles}/lazygit/config.yml";
     };
 
     starship = {
