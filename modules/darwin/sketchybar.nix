@@ -3,7 +3,7 @@
   pkgs,
   ...
 }: {
-  services.sketchybar = {
-    enable = true;
-  };
+  # services.sketchybar = {
+  #   enable = true;
+  # };
 }
