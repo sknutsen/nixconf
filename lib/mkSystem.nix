@@ -55,6 +55,7 @@ in
         home-manager.useUserPackages = true;
         home-manager.users.${user} = import userHMConfig {
           isWSL = isWSL;
+          isDarwin = darwin;
           inputs = inputs;
         };
       }
@@ -67,6 +68,7 @@ in
           currentSystemName = name;
           currentSystemUser = user;
           isWSL = isWSL;
+          isDarwin = darwin;
           inputs = inputs;
         };
       }

@@ -1,5 +1,6 @@
 {
   isWSL,
+  isDarwin,
   inputs,
   ...
 }: {
@@ -14,11 +15,12 @@
       inputs.zen-browser.homeModules.twilight
 
       ../../modules/nvim
-      ../../modules/shell
+      (import ../../modules/shell {inherit inputs pkgs lib;})
       ../../modules/utils
       ../../modules/vcs
     ]
-    ++ lib.optional (!isWSL) ./gui.nix;
+    ++ lib.optional (!isWSL && !isDarwin) ./gui.nix
+    ++ lib.optional isDarwin ../../darwin;
 
   home = {
     # Home Manager needs a bit of information about you and the paths it should
@@ -71,23 +73,6 @@
       ".config/qt5ct".source = "${inputs.dotfiles}/qt/qt5ct";
       ".config/qt6ct".source = "${inputs.dotfiles}/qt/qt6ct";
       ".config/rofi".source = "${inputs.dotfiles}/rofi";
-      ".config/sketchybar" = {
-        source = "${inputs.dotfiles}/sketchybar";
-        recursive = true;
-        onChange = "${pkgs.sketchybar}/bin/sketchybar --reload";
-      };
-
-      # TODO: add sketchybar lua support (https://gist.github.com/gangjun06/00a309184adf4a86f5bc8a8a0ecc21dc)
-      # home.file.".local/share/sketchybar_lua/sketchybar.so" = {
-      #   source = "${pkgs.sbar-lua}/lib/sketchybar.so";
-      #   onChange = "${pkgs.sketchybar}/bin/sketchybar --reload";
-      # };
-
-      ".config/sketchybar/sketchybarrc" = {
-        source = "${inputs.dotfiles}/sketchybar/sketchybarrc";
-        executable = true;
-        onChange = "${pkgs.sketchybar}/bin/sketchybar --reload";
-      };
 
       # Zsh
       "zsh".source = "${inputs.dotfiles}/zsh/zsh";
