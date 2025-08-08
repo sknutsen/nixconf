@@ -42,7 +42,7 @@
         lsp = {
           enable = true;
           formatOnSave = true;
-          lspkind.enable = false;
+          lspkind.enable = true;
           lightbulb.enable = true;
           lspsaga.enable = false;
           trouble.enable = true;
@@ -76,7 +76,12 @@
           kotlin.enable = false;
           lua.enable = true;
           markdown.enable = true;
-          nix.enable = true;
+          nix = {
+            enable = true;
+            format.enable = true;
+            lsp.enable = true;
+            treesitter.enable = true;
+          };
           nu.enable = false;
           ocaml.enable = false;
           python.enable = true;
@@ -94,7 +99,11 @@
           typst.enable = false;
           vala.enable = false;
           yaml.enable = true;
-          zig.enable = true;
+          zig = {
+            enable = true;
+            lsp.enable = true;
+            treesitter.enable = true;
+          };
 
           # Nim LSP is broken on Darwin and therefore
           # should be disabled by default. Users may still enable
