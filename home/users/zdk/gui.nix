@@ -13,6 +13,8 @@
 
   home.packages = with pkgs; [
     _1password-gui
+    gimp3
+    handbrake
     thunderbird
   ];
 }
