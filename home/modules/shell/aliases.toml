@@ -1,1 +1,7 @@
-lg = "lazygit"
+ld = "command lazydocker"
+lg = "command lazygit"
+ll = "command eza -a1lgh --icons=always --color=always --group-directories-first --smart-group"
+ls = "command eza"
+
+vi = "command nvim"
+vim = "command nvim"
