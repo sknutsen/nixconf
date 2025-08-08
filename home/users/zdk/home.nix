@@ -14,6 +14,7 @@
       inputs.nvf.homeManagerModules.default
       inputs.zen-browser.homeModules.twilight
 
+      ../../modules/dev
       ../../modules/nvim
       (import ../../modules/shell {inherit inputs pkgs lib;})
       ../../modules/utils
