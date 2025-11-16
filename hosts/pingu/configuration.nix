@@ -78,6 +78,10 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  environment.sessionVariables = {
+    STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\${HOME}/.steam/root/compatibilitytools.d";
+  };
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -105,6 +109,7 @@
     #neovim
     openssl #required by Rainbow borders
     pciutils
+    protonup-ng
     stow
     wget
     xdg-user-dirs
@@ -131,7 +136,7 @@
     kdePackages.qt6ct
     kdePackages.qtwayland
     kdePackages.qtstyleplugin-kvantum #kvantum
-    rofi-wayland
+    rofi
     swaynotificationcenter
     swww
     unzip
@@ -155,8 +160,8 @@
       enable = true;
       settings = {
         default_session = {
-          user = "zdk";
-          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd Hyprland"; # start Hyprland with a TUI login manager
+          user = "greeter";
+          command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --remember-session --cmd Hyprland"; # start Hyprland with a TUI login manager
         };
       };
     };
@@ -210,18 +215,36 @@
   ];
 
   programs = {
+    dconf.enable = true;
+    fuse.userAllowOther = true;
+    gamemode.enable = true;
+
+    gnupg.agent = {
+      enable = true;
+      enableSSHSupport = true;
+    };
+
     hyprland = {
       enable = true;
       withUWSM = true; # recommended for most users
       xwayland.enable = true; # Xwayland can be disabled.
     };
 
+    hyprlock.enable = true;
+    mtr.enable = true;
+
     nh = {
       enable = true;
     };
 
-    waybar.enable = false;
-    hyprlock.enable = true;
+    seahorse.enable = true;
+
+    steam = {
+      enable = true;
+      gamescopeSession.enable = true;
+      remotePlay.openFirewall = true;
+      dedicatedServer.openFirewall = true;
+    };
 
     thunar.enable = true;
     thunar.plugins = with pkgs.xfce; [
@@ -232,23 +255,8 @@
       tumbler
     ];
 
-    steam = {
-      enable = true;
-      gamescopeSession.enable = true;
-      remotePlay.openFirewall = true;
-      dedicatedServer.openFirewall = true;
-    };
-
+    waybar.enable = false;
     xwayland.enable = true;
-
-    dconf.enable = true;
-    seahorse.enable = true;
-    fuse.userAllowOther = true;
-    mtr.enable = true;
-    gnupg.agent = {
-      enable = true;
-      enableSSHSupport = true;
-    };
 
     fish.enable = true;
     zsh.enable = true;

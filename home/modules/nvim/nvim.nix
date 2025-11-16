@@ -49,6 +49,16 @@
           lspSignature.enable = false;
           otter-nvim.enable = false;
           nvim-docs-view.enable = false;
+          # lspconfig = {
+          #   enable = true;
+          #   sources = {
+          #     templ_ls = {};
+          #   };
+          # };
+          servers = {
+            htmx = {};
+            templ = {};
+          };
         };
 
         # This section does not include a comprehensive list of available language modules.
@@ -68,7 +78,11 @@
           elixir.enable = false;
           fsharp.enable = false;
           gleam.enable = false;
-          go.enable = true;
+          go = {
+            enable = true;
+            lsp.enable = true;
+            treesitter.enable = true;
+          };
           haskell.enable = false;
           html.enable = true;
           java.enable = false;
@@ -144,6 +158,16 @@
               mappings.open = "<leader>lg";
             };
           };
+        };
+
+        treesitter = {
+          enable = true;
+          autotagHtml = true;
+          grammars = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
+            kdl
+            regex
+            tree-sitter-templ
+          ];
         };
 
         theme = {
