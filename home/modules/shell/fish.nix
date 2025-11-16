@@ -11,7 +11,7 @@
       "source ${inputs.theme-bobthefish}/functions/fish_prompt.fish"
       "source ${inputs.theme-bobthefish}/functions/fish_right_prompt.fish"
       "source ${inputs.theme-bobthefish}/functions/fish_title.fish"
-      (builtins.readFile ./config.fish)
+      (builtins.readFile "${inputs.dotfiles}/fish/config.fish")
       "set -g SHELL ${pkgs.fish}/bin/fish"
     ]);
 
