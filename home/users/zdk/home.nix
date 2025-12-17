@@ -132,6 +132,11 @@
       enable = true;
       enableZshIntegration = true;
       enableFishIntegration = true;
+
+      settings = builtins.fromTOML ''
+        [mgr]
+        show_hidden = true
+      '';
     };
   };
 
