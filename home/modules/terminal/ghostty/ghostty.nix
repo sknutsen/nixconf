@@ -3,8 +3,7 @@
   inputs,
   pkgs,
   ...
-}:
-let
+}: let
   isDarwin = pkgs.stdenv.isDarwin;
   isLinux = pkgs.stdenv.isLinux;
 in {
@@ -17,6 +16,8 @@ in {
       background-blur = true;
 
       font-size = 14;
+
+      shell-integration-features = "cursor,no-sudo,title,ssh-env,ssh-terminfo";
     };
 
     # themes = [];
