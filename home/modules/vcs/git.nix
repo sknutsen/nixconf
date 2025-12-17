@@ -2,10 +2,12 @@
   programs.git = {
     enable = true;
 
-    userName = "Sondre Knutsen";
-    userEmail = "sondreknutsen1@gmail.com";
+    user = {
+      name = "Sondre Knutsen";
+      email = "sondreknutsen1@gmail.com";
+    };
 
-    extraConfig = {
+    settings = {
       branch.autosetuprebase = "always";
       color.ui = true;
       core.askPass = ""; # needs to be empty to use terminal for ask pass
