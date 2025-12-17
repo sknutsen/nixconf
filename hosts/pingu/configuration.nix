@@ -139,6 +139,7 @@
     rofi
     swaynotificationcenter
     swww
+    unrar
     unzip
     wallust
     wl-clipboard
