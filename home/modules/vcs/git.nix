@@ -2,11 +2,6 @@
   programs.git = {
     enable = true;
 
-    user = {
-      name = "Sondre Knutsen";
-      email = "sondreknutsen1@gmail.com";
-    };
-
     settings = {
       branch.autosetuprebase = "always";
       color.ui = true;
@@ -15,6 +10,11 @@
       github.user = "sknutsen";
       push.default = "tracking";
       init.defaultBranch = "main";
+
+      user = {
+        name = "Sondre Knutsen";
+        email = "sondreknutsen1@gmail.com";
+      };
     };
   };
 }
