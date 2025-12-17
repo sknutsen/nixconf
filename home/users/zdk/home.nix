@@ -127,6 +127,12 @@
       enableFishIntegration = true;
       settings = builtins.fromTOML (builtins.readFile "${inputs.dotfiles}/starship/starship.toml");
     };
+
+    yazi = {
+      enable = true;
+      enableZshIntegration = true;
+      enableFishIntegration = true;
+    };
   };
 
   services = {
