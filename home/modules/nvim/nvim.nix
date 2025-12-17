@@ -20,14 +20,7 @@
         options = {
           shiftwidth = 2;
           tabstop = 2;
-        };
-
-        autocomplete = {
-          blink-cmp = {
-            enable = true;
-            setupOpts.signature.enabled = true;
-            setupOpts.cmdline.keymap.preset = "super-tab";
-          };
+          mousescroll = "ver:1";
         };
 
         clipboard = {
@@ -127,80 +120,11 @@
           nim.enable = false;
         };
 
-        visuals = {
-          nvim-scrollbar.enable = false;
-          nvim-web-devicons.enable = true;
-          nvim-cursorline.enable = true;
-          cinnamon-nvim.enable = true;
-          fidget-nvim.enable = true;
-
-          highlight-undo.enable = true;
-          indent-blankline.enable = true;
-
-          # Fun
-          cellular-automaton.enable = false;
-        };
-
-        statusline = {
-          lualine = {
-            enable = true;
-            theme = "catppuccin";
-          };
-        };
-
-        terminal = {
-          toggleterm = {
-            enable = true;
-
-            lazygit = {
-              enable = true;
-              package = pkgs.lazygit;
-              mappings.open = "<leader>lg";
-            };
-          };
-        };
-
-        treesitter = {
-          enable = true;
-          autotagHtml = true;
-          grammars = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
-            kdl
-            regex
-            tree-sitter-templ
-          ];
-        };
-
         theme = {
           enable = true;
           name = "catppuccin";
           style = "mocha";
           transparent = false;
-        };
-
-        ui = {
-          noice = {
-            enable = true;
-          };
-        };
-
-        utility = {
-          oil-nvim = {
-            enable = true;
-            setupOpts = {
-              view_options = {
-                show_hidden = true;
-              };
-            };
-          };
-        };
-
-        autopairs.nvim-autopairs.enable = true;
-
-        # autocomplete.nvim-cmp.enable = true;
-        snippets.luasnip.enable = true;
-
-        telescope = {
-          enable = true;
         };
 
         keymaps = [
