@@ -107,12 +107,15 @@
     lazygit
     libappindicator
     libnotify
+    lutris
     #neovim
     openssl #required by Rainbow borders
     pciutils
     protonup-ng
     stow
     wget
+    wine
+    # wine-tricks
     xdg-user-dirs
     xdg-utils
 
