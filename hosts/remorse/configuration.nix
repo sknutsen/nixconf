@@ -12,7 +12,7 @@
     enable = true;
 
     brews = [
-      "talosctl@1.6.3"
+      "siderolabs/tap/talosctl@1.6.3"
     ];
 
     casks = [
