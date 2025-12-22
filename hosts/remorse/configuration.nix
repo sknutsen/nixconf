@@ -11,10 +11,13 @@
     # Install Homebrew under the default prefix
     enable = true;
 
+    brews = [
+      "talosctl@1.6.3"
+    ];
+
     casks = [
       "font-hack-nerd-font"
       "ghostty"
-      "talosctl"
     ];
   };
 
