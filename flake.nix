@@ -57,7 +57,13 @@
     darwin,
     ...
   } @ inputs: let
-    overlays = [];
+    overlays = [
+      (final: prev: {
+        openldap = prev.openldap.overrideAttrs (_: {
+          doCheck = false;
+        });
+      })
+    ];
 
     mkSystem = import ./lib/mkSystem.nix {
       inherit overlays nixpkgs inputs;
