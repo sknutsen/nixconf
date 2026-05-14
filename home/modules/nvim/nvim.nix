@@ -42,13 +42,31 @@
           lspSignature.enable = false;
           otter-nvim.enable = false;
           nvim-docs-view.enable = false;
+
           # lspconfig = {
           #   enable = true;
           #   sources = {
           #     templ_ls = {};
           #   };
           # };
+
+          presets = {
+            superhtml.enable = true;
+            tailwindcss-language-server.enable = false;
+          };
+
           servers = {
+            "*" = {
+              root_markers = [".git"];
+              capabilities = {
+                textDocument = {
+                  semanticTokens = {
+                    multilineTokenSupport = true;
+                  };
+                };
+              };
+            };
+
             htmx = {};
             templ = {};
           };
@@ -96,13 +114,12 @@
           ruby.enable = false;
           rust = {
             enable = false;
-            crates.enable = false;
+            extensions.crates-nvim.enable = false;
           };
           scala.enable = false;
           sql.enable = true;
           svelte.enable = false;
-          tailwind.enable = false;
-          ts.enable = true;
+          typescript.enable = true;
           typst.enable = false;
           vala.enable = false;
           yaml.enable = true;
@@ -132,6 +149,12 @@
             key = "-";
             mode = "n";
             action = "<CMD>Oil<CR>";
+          }
+          {
+            key = "<leader>fe";
+            mode = "n";
+            lua = true;
+            action = "function() Snacks.explorer.open() end";
           }
         ];
       };

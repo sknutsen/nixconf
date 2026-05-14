@@ -2,6 +2,8 @@
   programs.git = {
     enable = true;
 
+    signing.format = "openpgp";
+
     settings = {
       branch.autosetuprebase = "always";
       color.ui = true;
