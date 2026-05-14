@@ -73,11 +73,17 @@
           };
 
           picker = {
-            sources.explorer = {
-              layout = {
+            sources = {
+              explorer = {
                 layout = {
-                  # position = "right";
+                  layout = {
+                    # position = "right";
+                  };
                 };
+              };
+
+              files = {
+                cmd = "rg";
               };
             };
           };

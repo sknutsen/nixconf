@@ -254,6 +254,7 @@ in {
       ffmpeg
       fzf
       glib #for gsettings to work
+      glibc
       gsettings-qt
       git
       home-manager

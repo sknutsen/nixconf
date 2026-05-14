@@ -11,10 +11,16 @@
     ../../modules/terminal
   ];
 
-  home.packages = with pkgs; [
-    _1password-gui
-    gimp3
-    handbrake
-    thunderbird
-  ];
+  home = {
+    packages = with pkgs; [
+      _1password-gui
+      gimp3
+      handbrake
+      thunderbird
+    ];
+  };
+
+  programs.cursor = {
+    enable = true;
+  };
 }

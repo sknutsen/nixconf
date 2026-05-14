@@ -44,6 +44,7 @@
       #   echo "Hello, ${config.home.username}!"
       # '')
       bat
+      cursor-cli
       eza
       htop
       jq
