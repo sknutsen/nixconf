@@ -63,6 +63,32 @@
           };
         };
       };
+
+      snacks-nvim = {
+        enable = true;
+
+        setupOpts = {
+          explorer = {
+            enabled = true;
+          };
+
+          picker = {
+            sources.explorer = {
+              layout = {
+                layout = {
+                  # position = "right";
+                };
+              };
+            };
+          };
+
+          project = {
+            dirs = [
+              "~/code"
+            ];
+          };
+        };
+      };
     };
 
     visuals = {

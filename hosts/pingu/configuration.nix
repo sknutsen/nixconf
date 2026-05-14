@@ -6,7 +6,27 @@
   inputs,
   pkgs,
   ...
-}: {
+}: let
+  dotnet-combined = (with pkgs.dotnetCorePackages;
+    combinePackages [
+      sdk_10_0
+    ]).overrideAttrs (finalAttrs: previousAttrs: {
+    # This is needed to install workload in $HOME
+    # https://discourse.nixos.org/t/dotnet-maui-workload/20370/2
+
+    postBuild =
+      (previousAttrs.postBuild or '''')
+      + ''
+
+        for i in $out/sdk/*
+        do
+          i=$(basename $i)
+          mkdir -p $out/metadata/workloads/''${i/-*}
+          touch $out/metadata/workloads/''${i/-*}/userlocal
+        done
+      '';
+  });
+in {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -78,79 +98,6 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-
-  environment.sessionVariables = {
-    STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\${HOME}/.steam/root/compatibilitytools.d";
-  };
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    # System Packages
-    bc
-    baobab
-    btrfs-progs
-    clang
-    cmake
-    curl
-    cpufrequtils
-    duf
-    findutils
-    ffmpeg
-    fzf
-    glib #for gsettings to work
-    gsettings-qt
-    git
-    home-manager
-    keepassxc
-    killall
-    lazygit
-    libappindicator
-    libnotify
-    lutris
-    #neovim
-    openssl #required by Rainbow borders
-    pciutils
-    protonup-ng
-    stow
-    wget
-    wine
-    # wine-tricks
-    xdg-user-dirs
-    xdg-utils
-
-    # Hyprland
-    ags # desktop overview
-    btop
-    brightnessctl # for brightness control
-    cliphist
-    gtk-engine-murrine #for gtk themes
-    jq
-    kitty
-    networkmanagerapplet
-    nvtopPackages.full
-    nwg-look
-    pamixer
-    pavucontrol
-    playerctl
-    polkit_gnome
-    hypridle
-    libsForQt5.qt5ct
-    libsForQt5.qtstyleplugin-kvantum #kvantum
-    kdePackages.qt6ct
-    kdePackages.qtwayland
-    kdePackages.qtstyleplugin-kvantum #kvantum
-    rofi
-    swaynotificationcenter
-    swww
-    unrar
-    unzip
-    wallust
-    wl-clipboard
-    wlogout
-    xarchiver
-    yad
-  ];
 
   services = {
     xserver = {
@@ -242,6 +189,11 @@
       enable = true;
     };
 
+    nix-ld = {
+      enable = true;
+      libraries = [];
+    };
+
     seahorse.enable = true;
 
     steam = {
@@ -252,8 +204,8 @@
     };
 
     thunar.enable = true;
-    thunar.plugins = with pkgs.xfce; [
-      exo
+    thunar.plugins = with pkgs; [
+      xfce4-exo
       mousepad
       thunar-archive-plugin
       thunar-volman
@@ -271,16 +223,98 @@
   xdg.portal = {
     enable = true;
     wlr.enable = false;
-    extraPortals = [
-      pkgs.xdg-desktop-portal-gtk
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-gtk
     ];
-    configPackages = [
-      pkgs.xdg-desktop-portal-gtk
-      pkgs.xdg-desktop-portal
+    configPackages = with pkgs; [
+      xdg-desktop-portal-gtk
+      xdg-desktop-portal
     ];
   };
 
   virtualisation.docker.enable = true;
+
+  environment = {
+    sessionVariables = {
+      DOTNET_ROOT = "${dotnet-combined}";
+      STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\${HOME}/.steam/root/compatibilitytools.d";
+    };
+
+    systemPackages = with pkgs; [
+      # System Packages
+      bc
+      baobab
+      btrfs-progs
+      clang
+      cmake
+      curl
+      cpufrequtils
+      duf
+      findutils
+      ffmpeg
+      fzf
+      glib #for gsettings to work
+      gsettings-qt
+      git
+      home-manager
+      keepassxc
+      killall
+      lazygit
+      libappindicator
+      libnotify
+      lutris
+      #neovim
+      openssl #required by Rainbow borders
+      pciutils
+      protonup-ng
+      stow
+      wget
+      wine
+      # wine-tricks
+      xdg-user-dirs
+      xdg-utils
+
+      # Hyprland
+      ags # desktop overview
+      btop
+      brightnessctl # for brightness control
+      cliphist
+      gtk-engine-murrine #for gtk themes
+      jq
+      kitty
+      networkmanagerapplet
+      nvtopPackages.full
+      nwg-look
+      pamixer
+      pavucontrol
+      playerctl
+      polkit_gnome
+      hypridle
+      libsForQt5.qt5ct
+      libsForQt5.qtstyleplugin-kvantum #kvantum
+      kdePackages.qt6ct
+      kdePackages.qtwayland
+      kdePackages.qtstyleplugin-kvantum #kvantum
+      rofi
+      swaynotificationcenter
+      awww
+      unrar
+      unzip
+      wallust
+      wl-clipboard
+      wlogout
+      xarchiver
+      yad
+
+      dotnet-combined
+      icu
+      mono
+      msbuild
+
+      jetbrains.rider
+      jetbrains.rust-rover
+    ];
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

@@ -1,14 +1,15 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs, ... }:
-
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  config,
+  pkgs,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -30,13 +31,13 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "en_GB.UTF-8";
   i18n.inputMethod.enabled = "ibus";
-  i18n.inputMethod.ibus.engines = with pkgs.ibus-engines; [ anthy ];
+  i18n.inputMethod.ibus.engines = with pkgs.ibus-engines; [anthy];
   console = {
     font = "Lat2-Terminus16";
     useXkbConfig = true;
   };
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 
   # Configure keymap in X11
   #services.xserver = {
@@ -70,7 +71,7 @@
   users.users.zdk = {
     isNormalUser = true;
     description = "Sondre Knutsen";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = ["networkmanager" "wheel"];
     packages = with pkgs; [
       firefox
       tree
@@ -93,7 +94,7 @@
     grim
     slurp
     libnotify
-    pkgs.dunst
+    dunst
     yad
     alsa-utils
     mpd
@@ -104,8 +105,8 @@
     git
     curl
     kitty
-    pkgs.eww-wayland
-    pkgs.home-manager
+    eww-wayland
+    home-manager
     vscodium
     direnv
     rofi-wayland
@@ -144,7 +145,7 @@
     ];
 
     zsh.enable = true;
-    
+
     dconf.enable = true;
   };
 
@@ -186,7 +187,7 @@
     };
     printing.enable = true;
     flatpak.enable = true;
-    dbus.packages = [ pkgs.gcr ];
+    dbus.packages = [pkgs.gcr];
     geoclue2.enable = true;
     udev.packages = with pkgs; [
       gnome.gnome-settings-daemon
@@ -218,5 +219,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.05"; # Did you read the comment?
-
 }
