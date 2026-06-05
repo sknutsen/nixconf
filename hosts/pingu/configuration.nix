@@ -307,6 +307,8 @@ in {
       xarchiver
       yad
 
+      cursor-cli
+
       dotnet-combined
       icu
       mono

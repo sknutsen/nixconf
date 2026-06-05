@@ -20,7 +20,7 @@
       ../../modules/utils
       ../../modules/vcs
     ]
-    ++ lib.optional (!isWSL && !isDarwin) ./gui.nix
+    ++ lib.optional (!isWSL && !isDarwin) (import ./gui.nix {inherit inputs pkgs lib;})
     ++ lib.optional isDarwin ../../darwin;
 
   home = {

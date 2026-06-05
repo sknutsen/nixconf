@@ -36,6 +36,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    t3code = {
+      url = "github:rodeyseijkens/t3code-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Non-flakes
     theme-bobthefish.url = "github:oh-my-fish/theme-bobthefish/e3b4d4eafc23516e35f162686f08a42edf844e40";
     theme-bobthefish.flake = false;
