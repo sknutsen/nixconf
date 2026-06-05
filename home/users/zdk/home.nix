@@ -77,7 +77,18 @@
       ".config/qt5ct".source = "${inputs.dotfiles}/qt/qt5ct";
       ".config/qt6ct".source = "${inputs.dotfiles}/qt/qt6ct";
       ".config/rofi".source = "${inputs.dotfiles}/rofi";
+      # ".config/sketchybar" = {
+      # source = "${inputs.dotfiles}/sketchybar";
+      # recursive = true;
+      # onChange = "${pkgs.sketchybar}/bin/sketchybar --reload";
+      # };
 
+      # ".config/sketchybar/sketchybarrc" = {
+      # source = "${inputs.dotfiles}/sketchybar/sketchybarrc";
+      # executable = true;
+      # onChange = "${pkgs.sketchybar}/bin/sketchybar --reload";
+      # };
+      #
       # Zsh
       "zsh".source = "${inputs.dotfiles}/zsh/zsh";
       ".zprofile".source = "${inputs.dotfiles}/zsh/.zprofile";
@@ -109,6 +120,14 @@
     # want to update the value, then make sure to first check the Home Manager
     # release notes.
     stateVersion = "24.05"; # Please read the comment before changing.
+
+    # dotnet workload install expects a login user (not activate-as-root); darwin/remorse only (.NET MAUI).
+    activation.dotnetMauiWorkloads =
+      lib.mkIf pkgs.stdenv.isDarwin
+      (lib.hm.dag.entryAfter ["installPackages"] ''
+        run echo "Installing .NET MAUI workloads…"
+        run ${pkgs.dotnetCorePackages.sdk_10_0}/bin/dotnet workload install maui maui-ios maui-android
+      '');
   };
 
   programs = {
