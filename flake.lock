@@ -704,6 +704,7 @@
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs_2",
         "nvf": "nvf",
+        "t3code": "t3code",
         "theme-bobthefish": "theme-bobthefish",
         "zen-browser": "zen-browser"
       }
@@ -735,6 +736,26 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "t3code": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1778369040,
+        "narHash": "sha256-C1zkuY4YXMMho0TKhNIElComMXxLM2iN4mcXgrwImAA=",
+        "owner": "rodeyseijkens",
+        "repo": "t3code-nix",
+        "rev": "e5e00a63e78f33c963c0d4c77b581ab179448359",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rodeyseijkens",
+        "repo": "t3code-nix",
         "type": "github"
       }
     },

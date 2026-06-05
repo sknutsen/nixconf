@@ -17,10 +17,20 @@
       gimp3
       handbrake
       thunderbird
+      yaak
+
+      inputs.t3code.packages.x86_64-linux.default
     ];
   };
 
-  programs.cursor = {
-    enable = true;
+  programs = {
+    cursor = {
+      enable = true;
+    };
+
+    rofi = {
+      enable = true;
+      theme = "material";
+    };
   };
 }
