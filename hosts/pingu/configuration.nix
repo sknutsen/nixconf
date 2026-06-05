@@ -131,7 +131,25 @@ in {
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
-      wireplumber.enable = true;
+      wireplumber = {
+        enable = true;
+        extraConfig."50-disable-matisse-audio" = {
+          "monitor.alsa.rules" = [
+            {
+              matches = [
+                {
+                  "device.product.name" = "Starship/Matisse HD Audio Controller";
+                }
+              ];
+              actions = {
+                "update-props" = {
+                  "device.disabled" = true;
+                };
+              };
+            }
+          ];
+        };
+      };
     };
 
     udev.enable = true;
