@@ -2,10 +2,31 @@
   inputs,
   pkgs,
   ...
-}: {
+}: let
+  # Single SDK derivation for workloads, PATH, and activation (avoid mixing with pkgs.dotnet-sdk).
+  dotnetSdk = pkgs.dotnetCorePackages.sdk_10_0;
+
+  androidComposition = pkgs.androidenv.composeAndroidPackages {
+    # Last three major API levels — enough for MAUI multi-targeting without pulling five years of platforms.
+    numLatestPlatformVersions = 3;
+
+    includeNDK = true;
+    includeEmulator = "if-supported";
+    includeSystemImages = "if-supported";
+    systemImageTypes = ["google_apis_playstore"];
+    abiVersions = ["arm64-v8a"];
+
+    includeExtras = ["extras;google;auto"];
+  };
+
+  androidSdkHome = "${androidComposition.androidsdk}/libexec/android-sdk";
+in {
   imports = [
     ../../modules/darwin
   ];
+
+  # Required for pkgs.androidenv (see pkgs/development/mobile/androidenv/license.nix).
+  nixpkgs.config.android_sdk.accept_license = true;
 
   homebrew = {
     # Install Homebrew under the default prefix
@@ -22,6 +43,13 @@
     ];
   };
 
+  environment.variables = {
+    ANDROID_HOME = androidSdkHome;
+    ANDROID_SDK_ROOT = androidSdkHome;
+    ANDROID_NDK_ROOT = "${androidSdkHome}/ndk-bundle";
+    JAVA_HOME = "${pkgs.jdk.home}";
+  };
+
   environment.shells = with pkgs; [
     bashInteractive
     fish
@@ -30,10 +58,19 @@
 
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
-  environment.systemPackages = with pkgs; [
-    cachix
-    vim
-  ];
+  environment.systemPackages =
+    [
+      dotnetSdk
+      androidComposition.androidsdk
+    ]
+    ++ (with pkgs; [
+      cachix
+      cursor-cli
+      go
+      jdk
+      jetbrains.rider
+      vim
+    ]);
 
   nix.enable = true;
   # Necessary for using flakes on this system.
@@ -85,8 +122,10 @@
     home = "/Users/zdk";
     shell = pkgs.fish;
   };
+  security.pam.services.sudo_local.touchIdAuth = true;
 
   programs = {
+    # xcode.enable = true;
     fish = {
       enable = true;
       shellInit = ''

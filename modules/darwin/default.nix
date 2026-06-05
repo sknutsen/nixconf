@@ -1,5 +1,6 @@
 {
   imports = [
-    ./sketchybar.nix
+    # ./sketchybar.nix
+    ./shared.nix
   ];
 }
