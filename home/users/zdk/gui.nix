@@ -1,12 +1,13 @@
 {
   inputs,
+  lib,
   pkgs,
   ...
 }: {
   imports = [
     ../../modules/browser
     ../../modules/comms
-    ../../modules/desktop
+    (import ../../modules/desktop {inherit inputs lib pkgs;})
     ../../modules/media
     ../../modules/terminal
   ];
@@ -19,7 +20,8 @@
       thunderbird
       yaak
 
-      inputs.t3code.packages.x86_64-linux.default
+      # Upstream t3code-nix sets `pkgs = pkgs` on the drv, which breaks evaluation.
+      (callPackage ../../packages/t3code.nix {})
     ];
   };
 

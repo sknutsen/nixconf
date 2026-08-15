@@ -13,7 +13,7 @@
   inactive = "#CDD6F3";
 in {
   programs.hyprpanel = {
-    enable = isLinux;
+    enable = false;
 
     settings = {
       ###########################################################

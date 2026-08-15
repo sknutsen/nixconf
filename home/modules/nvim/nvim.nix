@@ -110,6 +110,9 @@
           nu.enable = false;
           ocaml.enable = false;
           python.enable = true;
+          qml = {
+            enable = true;
+          };
           r.enable = false;
           ruby.enable = false;
           rust = {

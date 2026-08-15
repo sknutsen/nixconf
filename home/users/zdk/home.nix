@@ -12,6 +12,7 @@
   imports =
     [
       inputs.nvf.homeManagerModules.default
+      inputs.zdesktop.homeManagerModules.default
       inputs.zen-browser.homeModules.twilight
 
       ../../modules/dev

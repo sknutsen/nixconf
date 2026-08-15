@@ -4,6 +4,7 @@
 {
   config,
   inputs,
+  lib,
   pkgs,
   ...
 }: let
@@ -113,7 +114,9 @@ in {
       settings = {
         default_session = {
           user = "greeter";
-          command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --remember-session --cmd start-hyprland"; # start Hyprland with a TUI login manager
+          # withUWSM is enabled — must start via uwsm so graphical-session.target
+          # (and WantedBy units like quickshell) actually come up.
+          command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --remember-session --cmd '${lib.getExe pkgs.uwsm} start hyprland-uwsm.desktop'";
         };
       };
     };
@@ -298,7 +301,6 @@ in {
       btop
       brightnessctl # for brightness control
       cliphist
-      gtk-engine-murrine #for gtk themes
       jq
       kitty
       networkmanagerapplet
