@@ -140,12 +140,7 @@
           nim.enable = false;
         };
 
-        theme = {
-          enable = true;
-          name = "catppuccin";
-          style = "mocha";
-          transparent = false;
-        };
+        # vim.theme is applied by zdesktop (mkDefault from zdesktop.theme).
 
         keymaps = [
           {
