@@ -47,6 +47,7 @@
       bat
       cursor-cli
       eza
+      gh
       htop
       jq
       lazygit
