@@ -763,11 +763,11 @@
         "quickshell": "quickshell"
       },
       "locked": {
-        "lastModified": 1787753295,
-        "narHash": "sha256-+OtZy8j30mA0bfwu42jGMjUdrpliPWU+tN/Zy3ydt0c=",
+        "lastModified": 1787754852,
+        "narHash": "sha256-xTBCQBYnBS6F18O7OTOORqdaPoHB6xWBfsEAA8ZpaB4=",
         "owner": "sknutsen",
         "repo": "zdesktop",
-        "rev": "40afeefaad1e0e77e1a608328c08fe5d14145769",
+        "rev": "8ebb1a83be34ef3160f9f34120edcdf75c1570e6",
         "type": "github"
       },
       "original": {
