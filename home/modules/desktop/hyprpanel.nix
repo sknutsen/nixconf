@@ -4,10 +4,8 @@
   pkgs,
   ...
 }: let
-  isDarwin = pkgs.stdenv.isDarwin;
-  isLinux = pkgs.stdenv.isLinux;
   active =
-    if isLinux
+    if pkgs.stdenv.hostPlatform.isLinux
     then "#B4BEFE"
     else "FFFFFF";
   inactive = "#CDD6F3";
