@@ -9,6 +9,9 @@ in {
   imports = [
   ];
 
+  zdesktop.theme = "nord";
+  zdesktop.applySystemTheme = true;
+
   programs = {
     zdkhypr.enable = true;
     zdkshell = {
