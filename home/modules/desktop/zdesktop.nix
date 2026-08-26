@@ -3,7 +3,9 @@
   lib,
   pkgs,
   ...
-}: {
+}: let
+  system = pkgs.stdenv.hostPlatform.system;
+in {
   imports = [
   ];
 
@@ -11,6 +13,8 @@
     zdkhypr.enable = true;
     zdkshell = {
       enable = true;
+      package = inputs.zdesktop.inputs.quickshell.packages.${system}.default;
+      configPackage = inputs.zdesktop.packages.${system}.zdkshell-config;
 
       systemd.enable = false;
     };
