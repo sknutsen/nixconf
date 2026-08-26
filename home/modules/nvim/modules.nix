@@ -18,7 +18,8 @@
     statusline = {
       lualine = {
         enable = true;
-        theme = "catppuccin";
+        # Follow vim.theme from zdesktop rather than a hardcoded plugin.
+        theme = "auto";
       };
     };
 
