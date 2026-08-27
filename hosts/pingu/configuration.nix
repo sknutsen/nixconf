@@ -234,6 +234,10 @@ in {
     ];
 
     waybar.enable = false;
+    winbox = {
+      enable = true;
+      openFirewall = true;
+    };
     xwayland.enable = true;
 
     fish.enable = true;
