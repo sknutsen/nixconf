@@ -53,6 +53,7 @@
       jq
       lazygit
       ripgrep
+      sops
       zsh
     ];
 
