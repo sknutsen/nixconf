@@ -124,7 +124,7 @@
 
     # dotnet workload install expects a login user (not activate-as-root); darwin/remorse only (.NET MAUI).
     activation.dotnetMauiWorkloads =
-      lib.mkIf pkgs.stdenv.isDarwin
+      lib.mkIf pkgs.stdenv.hostPlatform.isDarwin
       (lib.hm.dag.entryAfter ["installPackages"] ''
         run echo "Installing .NET MAUI workloads…"
         run ${pkgs.dotnetCorePackages.sdk_10_0}/bin/dotnet workload install maui maui-ios maui-android
