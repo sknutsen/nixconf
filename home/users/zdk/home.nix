@@ -44,6 +44,7 @@
       # (pkgs.writeShellScriptBin "my-hello" ''
       #   echo "Hello, ${config.home.username}!"
       # '')
+      age
       bat
       cursor-cli
       eza
