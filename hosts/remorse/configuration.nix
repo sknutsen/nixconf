@@ -34,7 +34,7 @@ in {
 
     brews = [
       "kubectl"
-      "siderolabs/tap/talosctl@1.6.3"
+      # "siderolabs/tap/talosctl@1.6.3"
     ];
 
     casks = [
@@ -73,6 +73,7 @@ in {
     ]);
 
   nix.enable = true;
+  nix.package = pkgs.lixPackageSets.latest.lix;
   # Necessary for using flakes on this system.
   nix.settings.experimental-features = "nix-command flakes";
 
