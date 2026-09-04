@@ -22,7 +22,7 @@
       ../../modules/vcs
     ]
     ++ lib.optional (!isWSL && !isDarwin) (import ./gui.nix {inherit inputs pkgs lib;})
-    ++ lib.optional isDarwin ../../darwin;
+    ++ lib.optional isDarwin ../../modules/darwin;
 
   home = {
     # Home Manager needs a bit of information about you and the paths it should
