@@ -19,7 +19,7 @@
       lualine = {
         enable = true;
         # Follow vim.theme from zdesktop rather than a hardcoded plugin.
-        theme = "auto";
+        setupOpts.options.theme = "auto";
       };
     };
 
