@@ -47,6 +47,7 @@
       age
       bat
       cursor-cli
+      dig
       eza
       gh
       htop
