@@ -632,11 +632,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1785704021,
-        "narHash": "sha256-eQtczKMAS4ItlB4pr1B3MqBZiyRVl2nkqNdtyRSQMa8=",
+        "lastModified": 1787994703,
+        "narHash": "sha256-6SUZyyALo19heYPa/Xmu2H4zV+wvdfVX4fTcqbgHRnI=",
         "ref": "refs/heads/master",
-        "rev": "28771c7c74b42e20afca0b1b63980cb46515537c",
-        "revCount": 835,
+        "rev": "2d3b3e9c70ef380dff751b61d334dc88df016c29",
+        "revCount": 856,
         "type": "git",
         "url": "https://git.outfoxxed.me/outfoxxed/quickshell"
       },
@@ -763,11 +763,11 @@
         "quickshell": "quickshell"
       },
       "locked": {
-        "lastModified": 1787754852,
-        "narHash": "sha256-xTBCQBYnBS6F18O7OTOORqdaPoHB6xWBfsEAA8ZpaB4=",
+        "lastModified": 1788679477,
+        "narHash": "sha256-fXaUgjugdLo+OyAtUOCeLTxdjpEXL4ct21dArAWuHnE=",
         "owner": "sknutsen",
         "repo": "zdesktop",
-        "rev": "8ebb1a83be34ef3160f9f34120edcdf75c1570e6",
+        "rev": "ce090447e0b96bd75feeda0828214b1ebadae162",
         "type": "github"
       },
       "original": {
@@ -784,11 +784,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1788631059,
-        "narHash": "sha256-dTXXfL/ebqRvOLV/cFiTh/TKN6FNVGg+IMgk1lKtxMs=",
+        "lastModified": 1788672837,
+        "narHash": "sha256-FgtxJIiNZfqNkLeIz30/CDE6v6gbou0MhuiFLt2En7w=",
         "owner": "0xc000022070",
         "repo": "zen-browser-flake",
-        "rev": "7e8bf446cd9cfa86d30dafb9694f548afc7b2df0",
+        "rev": "ec2c94c95846c36130edb9872a8ca4c203028c84",
         "type": "github"
       },
       "original": {

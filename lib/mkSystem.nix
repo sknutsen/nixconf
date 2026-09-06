@@ -49,6 +49,14 @@ in
 
       machineConfig
 
+      # Pins org.freedesktop.impl.portal.Settings to gtk on Hyprland so
+      # color-scheme reaches XWayland/Electron. No-op unless xdg.portal.enable.
+      (
+        if darwin
+        then {}
+        else inputs.zdesktop.nixosModules.default
+      )
+
       home-manager.home-manager
       {
         home-manager.useGlobalPkgs = true;
