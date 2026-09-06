@@ -14,8 +14,7 @@
   appimageContents = pkgs.appimageTools.extract {
     inherit pname version src;
   };
-in
-  pkgs.appimageTools.wrapType2 {
+  unwrapped = pkgs.appimageTools.wrapType2 {
     inherit pname version src;
 
     extraInstallCommands = ''
@@ -29,10 +28,30 @@ in
       "--bind-try /etc/nixos/ /etc/nixos/"
     ];
 
-    dieWithParent = false;
+    # Upstream t3code-nix sets this false, which leaves orphaned backends
+    # (PPID 1) after quit. Those hold 3773+ and ~/.t3/userdata/state.sqlite,
+    # so the next launch scans to a new port and freezes on the shared DB.
+    dieWithParent = true;
 
     extraPkgs = pkgs:
       with pkgs; [
         autoPatchelfHook
       ];
+  };
+in
+  pkgs.symlinkJoin {
+    inherit pname version;
+    name = "${pname}-${version}";
+    paths = [unwrapped];
+    nativeBuildInputs = [pkgs.makeWrapper];
+    # X11 avoids the Wayland ready-to-show hang. --no-sandbox matches the
+    # upstream desktop file; Nix store chrome-sandbox is not setuid.
+    # GPU disable flags do not fix the post-splash black window.
+    postBuild = ''
+      wrapProgram $out/bin/${pname} \
+        --unset ELECTRON_RUN_AS_NODE \
+        --unset ELECTRON_NO_ASAR \
+        --add-flags "--no-sandbox"
+    '';
+    passthru = {inherit unwrapped;};
   }
