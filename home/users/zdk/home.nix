@@ -143,6 +143,20 @@ in {
     # release notes.
     stateVersion = "24.05"; # Please read the comment before changing.
 
+    # Old gens linked gtk/rofi as store directories. zdesktop and programs.rofi
+    # now write files inside those paths; unlink the dirs before HM tries to
+    # backup/replace files on a read-only store symlink.
+    activation.unpinZdesktopThemeDirs = lib.mkIf zdesktopStyling (
+      lib.hm.dag.entryBefore ["checkLinkTargets"] ''
+        for dir in gtk-3.0 gtk-4.0 rofi kvantum qt5ct qt6ct; do
+          path="${config.xdg.configHome}/$dir"
+          if [ -L "$path" ]; then
+            run rm -f "$path"
+          fi
+        done
+      ''
+    );
+
     # dotnet workload install expects a login user (not activate-as-root); darwin/remorse only (.NET MAUI).
     activation.dotnetMauiWorkloads =
       lib.mkIf pkgs.stdenv.hostPlatform.isDarwin
