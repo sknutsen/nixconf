@@ -8,7 +8,14 @@
   lib,
   pkgs,
   ...
-}: {
+}: let
+  # JaKooLit/dotfiles GTK+Qt trees fight zdesktop.applySystemTheme (named
+  # theme, extraCss, color-scheme, qt.platformTheme=gtk3). Keep them only
+  # when zdesktop is not actually styling the session.
+  zdesktopStyling =
+    config.zdesktop.applySystemTheme
+    && (config.programs.zdkhypr.enable || config.programs.zdkshell.enable);
+in {
   imports =
     [
       inputs.nvf.homeManagerModules.default
@@ -71,15 +78,27 @@
       #   org.gradle.console=verbose
       #   org.gradle.daemon.idletimeout=3600000
       # '';
-      ".config/gtk-3.0".source = "${inputs.dotfiles}/gtk/gtk-3.0";
-      ".config/gtk-4.0".source = "${inputs.dotfiles}/gtk/gtk-4.0";
+      ".config/gtk-3.0" = lib.mkIf (!zdesktopStyling) {
+        source = "${inputs.dotfiles}/gtk/gtk-3.0";
+      };
+      ".config/gtk-4.0" = lib.mkIf (!zdesktopStyling) {
+        source = "${inputs.dotfiles}/gtk/gtk-4.0";
+      };
       ".config/kglobalshortcutsrc".source = "${inputs.dotfiles}/kde/kglobalshortcutsrc";
-      ".config/kvantum".source = "${inputs.dotfiles}/kvantum";
+      ".config/kvantum" = lib.mkIf (!zdesktopStyling) {
+        source = "${inputs.dotfiles}/kvantum";
+      };
       ".config/lazydocker".source = "${inputs.dotfiles}/lazydocker";
       ".config/lazygit".source = "${inputs.dotfiles}/lazygit";
-      ".config/qt5ct".source = "${inputs.dotfiles}/qt/qt5ct";
-      ".config/qt6ct".source = "${inputs.dotfiles}/qt/qt6ct";
-      ".config/rofi".source = "${inputs.dotfiles}/rofi";
+      ".config/qt5ct" = lib.mkIf (!zdesktopStyling) {
+        source = "${inputs.dotfiles}/qt/qt5ct";
+      };
+      ".config/qt6ct" = lib.mkIf (!zdesktopStyling) {
+        source = "${inputs.dotfiles}/qt/qt6ct";
+      };
+      ".config/rofi" = lib.mkIf (!zdesktopStyling) {
+        source = "${inputs.dotfiles}/rofi";
+      };
       # ".config/sketchybar" = {
       # source = "${inputs.dotfiles}/sketchybar";
       # recursive = true;

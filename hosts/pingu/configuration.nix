@@ -309,17 +309,12 @@ in {
       kitty
       networkmanagerapplet
       nvtopPackages.full
-      nwg-look
       pamixer
       pavucontrol
       playerctl
       polkit_gnome
       hypridle
-      libsForQt5.qt5ct
-      libsForQt5.qtstyleplugin-kvantum #kvantum
-      kdePackages.qt6ct
       kdePackages.qtwayland
-      kdePackages.qtstyleplugin-kvantum #kvantum
       rofi
       swaynotificationcenter
       awww
