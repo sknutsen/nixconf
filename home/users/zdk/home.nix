@@ -56,12 +56,15 @@ in {
       cursor-cli
       dig
       eza
+      fluxcd
       gh
       htop
       jq
+      kubectl
       lazygit
       ripgrep
       sops
+      wireguard-tools
       zsh
     ];
 

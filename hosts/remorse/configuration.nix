@@ -33,7 +33,6 @@ in {
     enable = true;
 
     brews = [
-      "kubectl"
       # "siderolabs/tap/talosctl@1.6.3"
     ];
 
