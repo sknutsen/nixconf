@@ -68,6 +68,7 @@ in {
       jq
       kubectl
       lazygit
+      railway
       ripgrep
       sops
       wireguard-tools
