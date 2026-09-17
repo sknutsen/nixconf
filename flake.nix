@@ -6,7 +6,7 @@
       url = "github:NixOS/nixpkgs/nixos-unstable";
     };
 
-    # Build a custom WSL installer
+    # NixOS-WSL module for nixosConfigurations.wsl (CLI host, not a custom installer)
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL";
       inputs.nixpkgs.follows = "nixpkgs";
