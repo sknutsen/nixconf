@@ -11,14 +11,14 @@
   # True if this is a WSL system.
   isWSL = wsl;
 
-  # True if Linux, which is a heuristic for not being Darwin.
-  isLinux = !darwin && !isWSL;
+  # WSL is Linux; Darwin is the only non-Linux target this helper builds.
+  isLinux = !darwin;
 
   # The config files for this system.
   machineConfig = ../hosts/${name}/configuration.nix;
   userHMConfig = ../home/users/${user}/home.nix;
 
-  # NixOS vs nix-darwin functionst
+  # NixOS vs nix-darwin functions
   systemFunc =
     if darwin
     then inputs.darwin.lib.darwinSystem
@@ -43,7 +43,7 @@ in
       # Bring in WSL if this is a WSL build
       (
         if isWSL
-        then inputs.nixos-wsl.nixosModules.wsl
+        then inputs.nixos-wsl.nixosModules.default
         else {}
       )
 
@@ -51,10 +51,11 @@ in
 
       # Pins org.freedesktop.impl.portal.Settings to gtk on Hyprland so
       # color-scheme reaches XWayland/Electron. No-op unless xdg.portal.enable.
+      # Skip on WSL so that host stays obviously desktop-free.
       (
-        if darwin
-        then {}
-        else inputs.zdesktop.nixosModules.default
+        if isLinux && !isWSL
+        then inputs.zdesktop.nixosModules.default
+        else {}
       )
 
       home-manager.home-manager
@@ -65,6 +66,7 @@ in
         home-manager.users.${user} = import userHMConfig {
           isWSL = isWSL;
           isDarwin = darwin;
+          isLinux = isLinux;
           inputs = inputs;
         };
       }
@@ -78,6 +80,7 @@ in
           currentSystemUser = user;
           isWSL = isWSL;
           isDarwin = darwin;
+          isLinux = isLinux;
           inputs = inputs;
         };
       }

@@ -1,6 +1,7 @@
 {
   isWSL,
   isDarwin,
+  isLinux,
   inputs,
   ...
 }: {
@@ -9,18 +10,19 @@
   pkgs,
   ...
 }: let
+  linuxDesktop = isLinux && !isWSL;
+
   # JaKooLit/dotfiles GTK+Qt trees fight zdesktop.applySystemTheme (named
   # theme, extraCss, color-scheme, qt.platformTheme=gtk3). Keep them only
   # when zdesktop is not actually styling the session.
   zdesktopStyling =
-    config.zdesktop.applySystemTheme
+    linuxDesktop
+    && config.zdesktop.applySystemTheme
     && (config.programs.zdkhypr.enable || config.programs.zdkshell.enable);
 in {
   imports =
     [
       inputs.nvf.homeManagerModules.default
-      inputs.zdesktop.homeManagerModules.default
-      inputs.zen-browser.homeModules.twilight
 
       ../../modules/dev
       ../../modules/nvim
@@ -28,7 +30,11 @@ in {
       ../../modules/utils
       ../../modules/vcs
     ]
-    ++ lib.optional (!isWSL && !isDarwin) (import ./gui.nix {inherit inputs pkgs lib;})
+    ++ lib.optionals (!isWSL) [
+      inputs.zdesktop.homeManagerModules.default
+      inputs.zen-browser.homeModules.twilight
+    ]
+    ++ lib.optional linuxDesktop (import ./gui.nix {inherit inputs pkgs lib;})
     ++ lib.optional isDarwin ../../modules/darwin;
 
   home = {
@@ -81,25 +87,27 @@ in {
       #   org.gradle.console=verbose
       #   org.gradle.daemon.idletimeout=3600000
       # '';
-      ".config/gtk-3.0" = lib.mkIf (!zdesktopStyling) {
+      ".config/gtk-3.0" = lib.mkIf (linuxDesktop && !zdesktopStyling) {
         source = "${inputs.dotfiles}/gtk/gtk-3.0";
       };
-      ".config/gtk-4.0" = lib.mkIf (!zdesktopStyling) {
+      ".config/gtk-4.0" = lib.mkIf (linuxDesktop && !zdesktopStyling) {
         source = "${inputs.dotfiles}/gtk/gtk-4.0";
       };
-      ".config/kglobalshortcutsrc".source = "${inputs.dotfiles}/kde/kglobalshortcutsrc";
-      ".config/kvantum" = lib.mkIf (!zdesktopStyling) {
+      ".config/kglobalshortcutsrc" = lib.mkIf linuxDesktop {
+        source = "${inputs.dotfiles}/kde/kglobalshortcutsrc";
+      };
+      ".config/kvantum" = lib.mkIf (linuxDesktop && !zdesktopStyling) {
         source = "${inputs.dotfiles}/kvantum";
       };
       ".config/lazydocker".source = "${inputs.dotfiles}/lazydocker";
       ".config/lazygit".source = "${inputs.dotfiles}/lazygit";
-      ".config/qt5ct" = lib.mkIf (!zdesktopStyling) {
+      ".config/qt5ct" = lib.mkIf (linuxDesktop && !zdesktopStyling) {
         source = "${inputs.dotfiles}/qt/qt5ct";
       };
-      ".config/qt6ct" = lib.mkIf (!zdesktopStyling) {
+      ".config/qt6ct" = lib.mkIf (linuxDesktop && !zdesktopStyling) {
         source = "${inputs.dotfiles}/qt/qt6ct";
       };
-      ".config/rofi" = lib.mkIf (!zdesktopStyling) {
+      ".config/rofi" = lib.mkIf (linuxDesktop && !zdesktopStyling) {
         source = "${inputs.dotfiles}/rofi";
       };
       # ".config/sketchybar" = {
@@ -205,7 +213,7 @@ in {
 
   services = {
     syncthing = {
-      enable = true;
+      enable = !isWSL;
       guiAddress = "127.0.0.1:8384";
     };
   };
