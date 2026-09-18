@@ -72,6 +72,8 @@
         openldap = prev.openldap.overrideAttrs (_: {
           doCheck = false;
         });
+        # nixpkgs-unstable is still on 5.30.4; pin the latest GitHub release.
+        railway = final.callPackage ./home/packages/railway.nix {};
       })
     ];
 
